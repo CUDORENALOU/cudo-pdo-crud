@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2024 at 11:32 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Jun 01, 2024 at 06:45 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `cudo`
+-- Database: `flores`
 --
 
 -- --------------------------------------------------------
@@ -34,6 +34,7 @@ CREATE TABLE `addresses` (
   `state` varchar(100) NOT NULL,
   `postal_code` varchar(20) NOT NULL,
   `country` varchar(100) NOT NULL,
+  `payment_id` int(6) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -41,11 +42,8 @@ CREATE TABLE `addresses` (
 -- Dumping data for table `addresses`
 --
 
-INSERT INTO `addresses` (`id`, `street_address`, `city`, `state`, `postal_code`, `country`, `created_at`) VALUES
-(1, '', '', '', '', '', '2024-05-27 07:08:03'),
-(2, '', '', '', '', '', '2024-05-27 07:08:06'),
-(3, 'dfgh', 'fj', 'fhj', 'fhj', 'fhj', '2024-05-27 09:28:52'),
-(4, 'DGYYUJTY', 'TUITY', 'TYI', 'YIS', 'R56', '2024-05-27 09:31:32');
+INSERT INTO `addresses` (`id`, `street_address`, `city`, `state`, `postal_code`, `country`, `payment_id`, `created_at`) VALUES
+(10, 'manolo', 'none', 'mindanao', '213212sds312312', 'Philippineswdwadw', 15, '2024-06-01 04:44:35');
 
 -- --------------------------------------------------------
 
@@ -66,15 +64,7 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`id`, `product_name`, `price`, `payment_method`, `created_at`) VALUES
-(1, 'croptop', '99.00', 'PayMaya', '2024-05-27 09:28:27'),
-(2, '', '0.00', 'PayMaya', '2024-05-27 09:28:39'),
-(3, '', '0.00', 'PayMaya', '2024-05-27 09:28:39'),
-(4, '', '0.00', 'PayMaya', '2024-05-27 09:28:40'),
-(5, '', '0.00', 'PayMaya', '2024-05-27 09:28:40'),
-(6, '', '0.00', 'PayMaya', '2024-05-27 09:28:41'),
-(7, '', '0.00', 'PayMaya', '2024-05-27 09:28:42'),
-(8, '', '0.00', 'PayMaya', '2024-05-27 09:28:43'),
-(9, 'YERY', '99.00', 'GCash', '2024-05-27 09:31:20');
+(15, 'Samsung Galaxy Book', 1500.00, 'PayMaya', '2024-06-01 04:41:42');
 
 -- --------------------------------------------------------
 
@@ -123,9 +113,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `created_at`) VALUES
 (1, 'admin', '$2y$10$kGp4g1TjBK4XwLIwRbBHSeZ4W5FpPbYoB1ap5NfFUjUPAcE3KR5QG', '2024-04-29 16:39:58'),
-(2, 'renalou', '$2y$10$qwbKDxw6t5q1JDybNK7cK.EgdGUQRBKMug4DgCAjdO4GagYl56d1q', '2024-05-27 17:19:28'),
-(3, 'maloy', '$2y$10$NgwrcnJ49Xy6M.0dMx0auOy/nuAM4mHMzfHeDIMcQxXoT0dY.qEmi', '2024-05-27 17:20:04'),
-(4, 'malloy', '$2y$10$sM7Nx9dYW9eiPmugG5OAN.o6nduUPNPg2WTCuYFnef8TL0NJrkEg6', '2024-05-27 17:21:42');
+(2, 'baslao', '$2y$10$26m/9gmMDpV4k0Y9UXLHI.TnvIRgoyNdkeQ/NC.XN6v3Q5ZgMz0dO', '2024-05-29 09:12:28'),
+(0, 'flores', '$2y$10$fn/PRNEDe1C91UtFK1mLAO3f7ONilokzuqMRKIW1ipVeWUTtCe.DC', '2024-06-01 12:34:55');
 
 --
 -- Indexes for dumped tables
@@ -135,24 +124,13 @@ INSERT INTO `users` (`id`, `username`, `password`, `created_at`) VALUES
 -- Indexes for table `addresses`
 --
 ALTER TABLE `addresses`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `payment_id` (`payment_id`);
 
 --
 -- Indexes for table `payments`
 --
 ALTER TABLE `payments`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `products`
---
-ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -163,25 +141,23 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `products`
+-- Constraints for dumped tables
 --
-ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `users`
+-- Constraints for table `addresses`
 --
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `addresses`
+  ADD CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
